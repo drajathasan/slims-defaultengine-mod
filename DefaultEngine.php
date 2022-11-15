@@ -211,7 +211,7 @@ class DefaultEngineMod extends SLiMS\SearchEngine\Contract
                     else
                     {
                         $this->execute = array_merge($this->execute, $idx);
-                        $sub_query = trim(str_repeat('?,', count($idx??1)), ',');
+                        $sub_query = trim(str_repeat('?,', count($idx??[])), ',');
                     }
 
                     if ($bool === '-') {
@@ -232,7 +232,7 @@ class DefaultEngineMod extends SLiMS\SearchEngine\Contract
                         else
                         {
                             $this->execute = array_merge($this->execute, $idx);
-                            $sub_query = trim(str_repeat('?,', count($idx??1)), ',');
+                            $sub_query = trim(str_repeat('?,', count($idx??[])), ',');
                         }
                         
                         if ($bool === '-') {
@@ -324,7 +324,7 @@ class DefaultEngineMod extends SLiMS\SearchEngine\Contract
                     else
                     {
                         $this->execute = array_merge($this->execute, $idx);
-                        $sub_query = trim(str_repeat('?,', count($idx??1)), ',');
+                        $sub_query = trim(str_repeat('?,', count($idx??[])), ',');
                         if ($bool === '-') {
                             $sql_criteria .= ' b.gmd_id not in (' . $sub_query . ')';
                         } else {
@@ -371,7 +371,7 @@ class DefaultEngineMod extends SLiMS\SearchEngine\Contract
                     }
 
                     $this->execute = array_merge($this->execute, $mime_types);
-                    $sub_query_criteria = trim(str_repeat('?,', count($mime_types??1)), ',');
+                    $sub_query_criteria = trim(str_repeat('?,', count($mime_types??[])), ',');
 
                     $sub_query = "select bat.biblio_id from biblio_attachment as bat left join files as f on bat.file_id=f.file_id where f.mime_type in(" . $sub_query_criteria . ")";
                     if ($bool === '-') {
@@ -384,7 +384,7 @@ class DefaultEngineMod extends SLiMS\SearchEngine\Contract
                 case 'lang':
                     $idx = json_decode($query);
                     $this->execute = array_merge($this->execute, $idx);
-                    $sub_query = trim(str_repeat('?,', count($idx??1)), ',');
+                    $sub_query = trim(str_repeat('?,', count($idx??[])), ',');
                     if ($bool === '-') {
                         $sql_criteria .= ' b.language_id not in (' . $sub_query . ')';
                     } else {
