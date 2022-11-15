@@ -206,41 +206,41 @@ class DefaultEngineMod extends SLiMS\SearchEngine\Contract
                     if (is_null($idx))
                     {
                         $this->execute[] = $query;
-                        $sub_query = "select location_id from mst_location where location_id = ?";
+                        $sub_query = "select location_id from mst_location where location_name = ?";
                     }
                     else
                     {
                         $this->execute = array_merge($this->execute, $idx);
                         $sub_query = trim(str_repeat('?,', count($idx??1)), ',');
-                        
-                        if ($bool === '-') {
-                            $sql_criteria .= ' i.location_id not in(' . $sub_query . ')';
-                        } else {
-                            $sql_criteria .= ' i.location_id in(' . $sub_query . ')';
-                        }
+                    }
+
+                    if ($bool === '-') {
+                        $sql_criteria .= ' i.location_id not in(' . $sub_query . ')';
+                    } else {
+                        $sql_criteria .= ' i.location_id in(' . $sub_query . ')';
                     }
                     break;
 
-                case 'colltype':
-                    $idx = json_decode($query);
-                    
-                    if (is_null($idx))
-                    {
-                        $this->execute[] = $query;
-                        $sub_query = "select coll_type_id from mst_coll_type where coll_type_id = ?";
-                    }
-                    else
-                    {
-                        $this->execute = array_merge($this->execute, $idx);
-                        $sub_query = trim(str_repeat('?,', count($idx??1)), ',');
-
+                    case 'colltype':
+                        $idx = json_decode($query);
+                        
+                        if (is_null($idx))
+                        {
+                            $this->execute[] = $query;
+                            $sub_query = "select coll_type_id from mst_coll_type where coll_type_name = ?";
+                        }
+                        else
+                        {
+                            $this->execute = array_merge($this->execute, $idx);
+                            $sub_query = trim(str_repeat('?,', count($idx??1)), ',');
+                        }
+                        
                         if ($bool === '-') {
                             $sql_criteria .= ' i.coll_type_id not in(' . $sub_query . ')';
                         } else {
                             $sql_criteria .= ' i.coll_type_id in(' . $sub_query . ')';
                         }
-                    }                    
-                    break;
+                        break;
 
                 case 'itemcode':
                     $this->execute[] = $query;
